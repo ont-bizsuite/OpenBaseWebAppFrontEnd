@@ -2,9 +2,12 @@ import fetch from 'isomorphic-fetch';
 import history from './history';
 import message from '../components/common/Message';
 // TODO: set `URL_BASE` according to your server API, must end with `/`
-const URL_BASE = '/';
+const URL_BASE = 'https://openbase.ai.xiaomi.com/';
 const ABSOLUTE_URL_REG = /^(http|\/)/i;
-
+const {
+  NODE_ENV,
+} = process.env
+const isProd = NODE_ENV === 'production'
 const statusMap = {
   204: '资源未找到',
   400: '参数错误',
@@ -62,7 +65,12 @@ export default function request(url, params, options = {}) {
   // * https://example.com/api/balabala
   // * http://example.com/api/balabala
   // * /api/balabala
+  // url = 'https://example.com/api/balabala/';
+
   if (!ABSOLUTE_URL_REG.test(url)) {
+    url = `${URL_BASE}${url}`;
+  }
+  if (isProd) {
     url = `${URL_BASE}${url}`;
   }
   return fetch(url, options)

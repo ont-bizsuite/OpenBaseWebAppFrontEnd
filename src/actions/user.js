@@ -63,6 +63,7 @@ export const mapDatatoProps = user => {
     skilled: user.user_favourite,
     headPortrait: user.user_photo || avatar,
     role: user.role,
+    userId: user.user_id
   };
 };
 export const mapStatetoData = user => {
