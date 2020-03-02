@@ -97,7 +97,11 @@ const items = [
 function DownloadFn(e, item) {
   e.preventDefault();
   let userinfo = sessionStorage.getItem('userInfo');
-  const { userId } = JSON.parse(userinfo);
+  let userId = '';
+
+  if (userinfo) {
+   userId = JSON.parse(userinfo).userId;
+  }
   let params = {
     amount: 1,
     dataId: item.id,
